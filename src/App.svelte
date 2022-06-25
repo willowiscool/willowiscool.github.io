@@ -23,11 +23,11 @@
 	// todo update on resize
 	const canvas = document.createElement("canvas")
 	const ctx = canvas.getContext("2d")
-	ctx.font = "24px Inconsolata"
+	ctx.font = "20px Inconsolata"
 	const metrics = ctx.measureText(" ")
 
 	const width = Math.ceil(window.innerWidth / metrics.width)
-	const height = Math.ceil(window.innerHeight / 24)
+	const height = Math.ceil(window.innerHeight / 20)
 
 	let page = {
 		width,
@@ -133,7 +133,7 @@
 }
 span, a, button {
 	font-family: "Inconsolata", monospace;
-	font-size: 24px;
+	font-size: 20px;
 	color: #333;
 }
 .defaultpointer {
