@@ -6,16 +6,6 @@
 	import personal from "./personal.js"
 
 	const pages = {home, about, projects, contact, personal}
-	/*function processPage(page, pages) {
-		const pageNames = Object.keys(pages)
-		page.cells.forEach((row, y) =>
-			row.forEach((cell, x) => {
-				if (pageNames.includes(cell.func)) page.cells[y][x].func = () => transitionTo(pages[cell.func])
-			})
-		)
-	}
-	processPage(home, pages)
-	processPage(about, pages)*/
 
 	const VALIDCHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-=!@#$%^&*()_+`~,./<>?[]\{}|"
 
@@ -42,6 +32,18 @@
 		)
 	}
 
+	// generating changes outside of transitionto to be faster
+	const NUMFRAMES = 100 // make sure even
+	const genNum = NUMFRAMES => Math.floor(Array(NUMFRAMES * .5).fill().map(_ => Math.random()).reduce((a, b) => a + b, 0) + (Math.random() * (NUMFRAMES * .50)))
+	const changes = Array(page.height).fill().map(row =>
+		Array(page.width).fill().map(cell => {
+			let change1 = genNum(NUMFRAMES)
+			if (change1 > NUMFRAMES / 2) change1 = NUMFRAMES - change1
+			let change2 = genNum(NUMFRAMES)
+			if (change2 < NUMFRAMES / 2) change2 = NUMFRAMES - change2
+			return {change1, change2}
+		})
+	)
 	transitionTo(home)
 
 	async function transitionTo(np, options = {}) {
@@ -52,17 +54,6 @@
 		// transition out of current page:
 		// take each coordinate and designate for it a frame to change into a random character. distribute along a bell curve
 		// central limit theorem says random numbers will approach a bell curve when summed together (at least... I think)
-		const NUMFRAMES = 100 // make sure even
-		const genNum = NUMFRAMES => Math.floor(Array(NUMFRAMES / 2).fill().map(_ => Math.random()).reduce((a, b) => a + b, 0) + (Math.random() * (NUMFRAMES / 2)))
-		const changes = Array(page.height).fill().map(row =>
-			Array(page.width).fill().map(cell => {
-				let change1 = genNum(NUMFRAMES)
-				if (change1 > NUMFRAMES / 2) change1 = NUMFRAMES - change1
-				let change2 = genNum(NUMFRAMES)
-				if (change2 < NUMFRAMES / 2) change2 = NUMFRAMES - change2
-				return {change1, change2}
-			})
-		)
 		for (let frame = 0; frame < NUMFRAMES; frame++) {
 			let start = Date.now()
 			for (let y = 0; y < page.cells.length; y++) {

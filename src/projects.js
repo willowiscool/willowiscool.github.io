@@ -42,12 +42,12 @@ const links = [
 	{
 		text: "today.stuysu.org",
 		href: "https://today.stuysu.org",
-		line: 10
+		line: 11
 	},
 	{
 		text: "(Student Union IT GitHub)",
 		href: "https://github.com/stuysu",
-		line: 14
+		line: 15
 	}
 ]
 
