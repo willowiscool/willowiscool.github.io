@@ -55,14 +55,6 @@
 		const genNum = NUMFRAMES => Math.floor(Array(NUMFRAMES / 2).fill().map(_ => Math.random()).reduce((a, b) => a + b, 0) + (Math.random() * (NUMFRAMES / 2)))
 		const changes = Array(page.height).fill().map(row =>
 			Array(page.width).fill().map(cell => {
-				/*
-				let num1 = genNum(NUMFRAMES)
-				let num2 = genNum(NUMFRAMES)
-				return {
-					change1: Math.min(num2, num1),
-					change2: Math.max(num2, num1)
-				}*/
-
 				let change1 = genNum(NUMFRAMES)
 				if (change1 > NUMFRAMES / 2) change1 = NUMFRAMES - change1
 				let change2 = genNum(NUMFRAMES)
@@ -71,6 +63,7 @@
 			})
 		)
 		for (let frame = 0; frame < NUMFRAMES; frame++) {
+			let start = Date.now()
 			for (let y = 0; y < page.cells.length; y++) {
 				for (let x = 0; x < page.cells[y].length; x++) {
 					if (changes[y][x].change1 === frame) {
@@ -87,7 +80,8 @@
 					}
 				}
 			}
-			await sleep(50)
+			let end = Date.now()
+			if (end - start < 50) await sleep(50 - (end - start))
 			page = page
 		}
 	}
