@@ -1,6 +1,6 @@
 import generatePage from "./generatePage.js"
 
-const text = `
+/*const text = `
 ABOUT ME                   back
 
 (this is mostly a placeholder
@@ -23,6 +23,16 @@ doing some makeup every now and
 then. Hopefully, by the time
 you're reading this, I've
 become much better at that.
+`.trim()*/
+
+const text = `
+ABOUT ME                   back
+
+I have given up on consistently
+updating this site so this will
+be concise: my name is Willow
+and I go to the University of
+Rochester.
 `.trim()
 
 const links = [
